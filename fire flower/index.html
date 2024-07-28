@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fire Flower</title>
+    <style>
+        *{
+            padding:0;
+            margin:0 auto;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #000;
+            min-height: 100hv;
+            display: grid;
+            place-items:center;
+        }
+        .container{
+            position:relative;
+        }
+        .container i {
+            position:absolute;
+            left:-30px;
+            top:-30px;
+            width:200px;
+            height: 200px;
+            border-radius: 100px 100px 0 100px;
+            transform-origin: 30px 30px;
+            box-shadow: 25px 25px 5px var(--color) inset, 5px 5px 50px var(--color);
+            animation: infinite var(--duration) var(--delay) infinite linear;
+        }
+        @keyframes i {
+            to{
+                transform: rotate(1turn);
+            }
+        }
+        .container::after i:nth-child(odd) {
+            animation-direction:alternate-reverse;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"></div>
+    <script>
+        const container = document.querySelector(".container");
+        for (let i-0; i < 36; i++)
+        const element = document.createElement("i");
+        const delay = Math.random(1000) / -10;
+        const duration = 5 + Math.random() + 0.5;
+        const color = `hsl(${i * 1} 100% 50% /0.25)`;
+        element.style.setProperty('--color', color);
+        element.style.setProperty('--delay', `${delay}s`);
+        element.style.setProperty('--duration', `${duration}s`);
+        container.appendChild(element);
+    </script>
+</body>
+
+</html>

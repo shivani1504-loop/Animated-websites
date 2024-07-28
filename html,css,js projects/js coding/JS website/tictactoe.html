@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            margin: 0 auto;
+        }
+        
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .cell:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .message {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        
+        @media (max-width: 600px) {
+            .board {
+                grid-template-columns: repeat(3, 80px);
+            }
+            .cell {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5em;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .message {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const board = document.getElementById('board');
+            const message = document.getElementById('message');
+            const cells = Array.from(document.querySelectorAll('.cell'));
+            let currentPlayer = 'X';
+            let playerNames = [];
+            let gameActive = true;
+            const winningCombinations = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+            let boardState = ['', '', '', '', '', '', '', '', ''];
+
+            // Get player names
+            function getPlayerNames() {
+                const player1 = prompt('Enter name of Player 1 (X):');
+                playerNames = [player1 || 'Player 1', 'Computer'];
+                alert(`Welcome ${playerNames[0]} and ${playerNames[1]}!`);
+            }
+
+            function handleCellClick(event) {
+                const cell = event.target;
+                const index = cell.getAttribute('data-index');
+
+                if (boardState[index] !== '' || !gameActive) {
+                    return;
+                }
+
+                boardState[index] = currentPlayer;
+                cell.textContent = currentPlayer;
+
+                checkWinner();
+                if (gameActive) {
+                    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                    if (currentPlayer === 'O') {
+                        setTimeout(computerMove, 500); // Delay computer move for better UX
+                    }
+                }
+            }
+
+            function computerMove() {
+                const emptyCells = boardState.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
+                const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                boardState[randomIndex] = 'O';
+                cells[randomIndex].textContent = 'O';
+
+                checkWinner();
+                if (gameActive) {
+                    currentPlayer = 'X';
+                }
+            }
+
+            function checkWinner() {
+                let roundWon = false;
+                for (let i = 0; i < winningCombinations.length; i++) {
+                    const winCombo = winningCombinations[i];
+                    const a = boardState[winCombo[0]];
+                    const b = boardState[winCombo[1]];
+                    const c = boardState[winCombo[2]];
+
+                    if (a === '' || b === '' || c === '') {
+                        continue;
+                    }
+                    if (a === b && b === c) {
+                        roundWon = true;
+                        break;
+                    }
+                }
+
+                if (roundWon) {
+                    message.textContent = currentPlayer === 'X' ? `${playerNames[0]} wins!` : 'Computer wins!';
+                    gameActive = false;
+                    return;
+                }
+
+                if (!boardState.includes('')) {
+                    message.textContent = 'No one wins!';
+                    gameActive = false;
+                    return;
+                }
+            }
+
+            function resetGame() {
+                boardState = ['', '', '', '', '', '', '', '', ''];
+                cells.forEach(cell => {
+                    cell.textContent = '';
+                });
+                message.textContent = '';
+                currentPlayer = 'X';
+                gameActive = true;
+            }
+
+            cells.forEach(cell => {
+                cell.addEventListener('click', handleCellClick);
+            });
+
+            document.addEventListener('keypress', (event) => {
+                if (!gameActive && event.key.toLowerCase() === 'enter') {
+                    message.textContent = 'GAME OVER';
+                    setTimeout(() => {
+                        message.textContent = 'Starting new game...';
+                        setTimeout(() => {
+                            resetGame();
+                            message.textContent = '';
+                            getPlayerNames();
+                        }, 2000);
+                    }, 2000);
+                }
+            });
+
+            getPlayerNames();
+        });
+    </script>
+</body>
+
+</html>

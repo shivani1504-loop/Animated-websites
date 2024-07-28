@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CLOCK</title>
+    </head>
+    <body>
+        <h1 id="h1"></h1>
+        <div id="clock" >
+            <div id="f012"></div>
+            <div id="f17"></div>
+            <div id="f28"></div>
+            <div id="f39"></div>
+            <div id="f410"></div>
+            <div id="f511"></div>
+
+            <div id="dot"></div>
+            <div id="hour" class="arrow"></div>
+            <div id="minute" class="arrow"></div>
+            <div id="second" class="arrow"></div>
+        </div>
+        <style>
+            h1 {
+                text-align: center;
+            }
+            #clock { 
+                position: relative;
+                text-align: center;
+                
+                left: 10px;
+                width: 310px;
+                height: 310px;
+                background-color: rgba(64, 63, 63, 0.4);
+                border-radius: 50%;
+                border: 40px solid rgba(57, 1, 20, 0.4);
+                clip-path: none;
+                margin: auto;
+                background-size: 100%;
+            }
+            div{
+                position: absolute;
+                left: 149px;
+                width: 12px;
+                height: 310px;
+                background-color: black;
+                clip-path: polygon(0% 0%, 0% 100%, 0 100%,0 8%, 100% 8%, 100% 92%,0 92%, 0 100%, 100% 100%,100% 0);
+            }
+
+            #f012{
+                width: 20px;
+                left: 145px;
+            }
+            #f17{
+                transform: rotate(30deg);
+            }
+            #f28{
+                transform: rotate(60deg);
+            }
+            #f39{
+                transform: rotate(90deg);
+                width: 20px;
+                left: 145px;
+            }
+            #f410{
+                transform: rotate(120deg);
+            }
+            #f511{
+                transform: rotate(150deg);
+            }
+            #dot{
+                position: absolute;
+                top: 142px;
+                left: 142px;
+                width: 14px;
+                height: 14px;
+                border: 6px solid grey;
+                border-radius: 50%;
+                clip-path: none;
+            }
+            .arrow{
+                left: 147.5px;
+                width: 14px;
+                bottom: 155px;
+                transform-origin: bottom;
+            }
+            #hour{
+                clip-path: polygon(50% 0%, 100% 50%, 80% 45%, 80% 100%, 20% 100%, 20% 45%, 0% 50%,50% 0%);
+                height: 80px;
+                opacity: 0.8;
+            }
+            #minute{
+                clip-path: polygon(50% 0%, 100% 30%,80% 25%, 80% 100%, 20% 100%, 20% 25%, 0% 30%,50% 0%);
+                height: 120px;
+                opacity:  0.6;
+            }
+            #second,#second{
+                background-color:rgb(59, 11, 11);
+                height: 290px;
+                width: 10px;
+                left: 152.5px;
+                clip-path: none;
+            }
+            #second{
+                height: 120px;
+                width: 1%;
+                top: 9%;
+                left: 49.25%;
+                opacity: 0.6;
+            }
+        </style>
+        <script>
+            var h1 = document.getElementById("h1")
+            const time = () =>{
+                var x = new Date()
+                var h = x.getHours()
+                var m = x.getMinutes()
+                var s = x.getSeconds()
+
+                if(h > 12){
+                    h = h - 12
+                }
+                if(h < 10){
+                    h = "0" + h
+                }
+                if(m < 10){
+                    m = "0" + m
+                }
+                if (s < 10){
+                    s = "0"+s
+                }
+                h1.innerHTML = h+":"+m+":"+s
+
+            }
+            setInterval(time, 10)
+            var hour=document.getElementById("hour");
+            var minute=document.getElementById("minute");
+            var second=document.getElementById("second");
+
+            const clock=()=>{
+                var H=h1.innerHTML.slice(0,2)
+                var M=h1.innerHTML.slice(3,5)
+                var S=h1.innerHTML.slice(6,8)
+
+                let hDeg = H*30 + M/60*30
+                hour.style.transform="rotate("+hDeg+"deg)"
+                let mDeg = M*6 + S/60*6
+                minute.style.transform="rotate("+mDeg+"deg)"
+                let sDeg = S*6
+                second.style.transform="rotate("+sDeg+"deg)"
+                let sdeg = sdeg - 180
+                second.style.transition="rotate("+sdeg+"deg)"
+            }
+            setInterval(clock,10)
+            
+        </script>
+    </body>
+</html>

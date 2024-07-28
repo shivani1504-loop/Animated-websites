@@ -1,0 +1,205 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpaper Gallery</title>
+    <style>
+        body {
+            justify-content: center;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #f5cccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            /* Three images per row with gaps */
+        }
+        
+        @media (max-width: 800px) {
+            img {
+                width: calc(50% - 20px);
+                /* Two images per row on smaller screens */
+            }
+        }
+        
+        @media (max-width: 500px) {
+            img {
+                width: calc(100% - 20px);
+                /* One image per row on very small screens */
+            }
+        }
+        
+        h1 {
+            color: rgb(71, 7, 7);
+        }
+        
+        h2 {
+            color: rgb(113, 7, 7);
+        }
+        
+        h3 {
+            color: rgb(241, 16, 16);
+        }
+        
+        h4 {
+            color: rgb(238, 112, 112);
+        }
+        
+        h5 {
+            color: rgb(204, 147, 125);
+        }
+        
+        h6 {
+            color: rgb(85, 142, 233);
+        }
+        
+        p {
+            color: rgb(134, 165, 192);
+        }
+    </style>
+</head>
+
+<body>
+    <h1> <i>Welcome To The World of Nature</i></h1><br>
+
+    <img src="image/a.jpg" alt="">
+    <img src="image/b.jpg" alt="Wallpaper 2">
+    <img src="image/c.jpg" alt="Wallpaper 3">
+    <img src="image/d.jpg" alt="Wallpaper 4">
+    <img src="image/e.jpg" alt="Wallpaper 5">
+
+    <div class="box">
+        <h1>The Motivational Quotes</h1>
+        <div class="box1 ">
+            <h2> <b> <i>Reset,</i></b></h2>
+            <h3> <b> <i></b>Refocus,</i>
+            </h3>
+            <h4> <b> <i></b>Reajust,</i>
+            </h4>
+            <h5> <b> <i></b>Restart,</i>
+            </h5>
+            <h6> <i>AS MANY TIME <br> AS YOU NEED TO.</i></h6>
+            <p><i><b>JUST NEVER GIVE UP</b></i></p>
+        </div>
+    </div>
+
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpaper Gallery</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #f5cccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+            /* Three images per row with gaps */
+        }
+        
+        @media (max-width: 800px) {
+            img {
+                width: calc(50% - 20px);
+                /* Two images per row on smaller screens */
+            }
+        }
+        
+        @media (max-width: 500px) {
+            img {
+                width: calc(100% - 20px);
+                /* One image per row on very small screens */
+            }
+        }
+        
+        h1 {
+            color: rgb(71, 7, 7);
+            text-align: center;
+        }
+        
+        h2 {
+            color: rgb(113, 7, 7);
+        }
+        
+        h3 {
+            color: rgb(241, 16, 16);
+        }
+        
+        h4 {
+            color: rgb(238, 112, 112);
+        }
+        
+        h5 {
+            color: rgb(204, 147, 125);
+        }
+        
+        h6 {
+            color: rgb(85, 142, 233);
+        }
+        
+        p {
+            color: rgb(134, 165, 192);
+        }
+        
+        .box {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><i>Welcome To The World of Nature</i></h1><br>
+
+    <div class="gallery">
+        <img src="image/a.jpg" alt="Wallpaper 1">
+        <img src="image/b.jpg" alt="Wallpaper 2">
+        <img src="image/c.jpg" alt="Wallpaper 3">
+        <img src="image/d.jpg" alt="Wallpaper 4">
+        <img src="image/e.jpg" alt="Wallpaper 5">
+    </div>
+
+    <div class="box">
+        <h1>The Motivational Quotes</h1>
+        <div class="box1">
+            <h2><b><i>Reset,</i></b></h2>
+            <h3><b><i>Refocus,</i></b></h3>
+            <h4><b><i>Readjust,</i></b></h4>
+            <h5><b><i>Restart,</i></b></h5>
+            <h6><i>AS MANY TIMES <br> AS YOU NEED TO.</i></h6>
+            <p><i><b>JUST NEVER GIVE UP</b></i></p>
+        </div>
+    </div>
+
+</body>
+
+</html>

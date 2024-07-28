@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - Play Against Computer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .board div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            background-color: lightgray;
+            transition: all 0.3s ease;
+        }
+        
+        .board div:hover {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Tic Tac Toe - Play Against Computer</h1>
+
+        <div class="board" id="board">
+            <div onclick="cellClicked(0)" id="cell0"></div>
+            <div onclick="cellClicked(1)" id="cell1"></div>
+            <div onclick="cellClicked(2)" id="cell2"></div>
+            <div onclick="cellClicked(3)" id="cell3"></div>
+            <div onclick="cellClicked(4)" id="cell4"></div>
+            <div onclick="cellClicked(5)" id="cell5"></div>
+            <div onclick="cellClicked(6)" id="cell6"></div>
+            <div onclick="cellClicked(7)" id="cell7"></div>
+            <div onclick="cellClicked(8)" id="cell8"></div>
+        </div>
+
+        <button onclick="restart()" class="btn btn-primary mt-3">Restart</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let currentPlayer = 'X';
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let gameOver = false;
+
+        const winCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        function cellClicked(index) {
+            if (!gameOver && board[index] === '') {
+                board[index] = currentPlayer;
+                document.getElementById(`cell${index}`).innerText = currentPlayer;
+                if (checkWin(currentPlayer)) {
+                    setTimeout(() => {
+                        alert(`Player ${currentPlayer} wins!`);
+                        gameOver = true;
+                    }, 100);
+                } else {
+                    if (!board.includes('')) {
+                        setTimeout(() => {
+                            alert('It\'s a tie! Restarting the game.');
+                            restart();
+                        }, 100);
+                    } else {
+                        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                        setTimeout(() => computerMove(), 500);
+                    }
+                }
+            }
+        }
+
+        function computerMove() {
+            let emptyCells = board.reduce((acc, val, index) => (val === '' ? acc.concat(index) : acc), []);
+            let randomIndex = Math.floor(Math.random() * emptyCells.length);
+            let index = emptyCells[randomIndex];
+
+            board[index] = currentPlayer;
+            document.getElementById(`cell${index}`).innerText = currentPlayer;
+
+            if (checkWin(currentPlayer)) {
+                setTimeout(() => {
+                    alert(`Player ${currentPlayer} wins!`);
+                    gameOver = true;
+                }, 100);
+            } else if (!board.includes('')) {
+                setTimeout(() => {
+                    alert('It\'s a tie! Restarting the game.');
+                    restart();
+                }, 100);
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+
+        function checkWin(player) {
+            for (let combo of winCombinations) {
+                if (board[combo[0]] === player &&
+                    board[combo[1]] === player &&
+                    board[combo[2]] === player) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function restart() {
+            currentPlayer = 'X';
+            board = ['', '', '', '', '', '', '', '', ''];
+            gameOver = false;
+            for (let i = 0; i < 9; i++) {
+                document.getElementById(`cell${i}`).innerText = '';
+            }
+            if (currentPlayer === 'O') {
+                setTimeout(() => computerMove(), 500);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

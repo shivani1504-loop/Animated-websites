@@ -1,0 +1,77 @@
+<!-- Create a basic audio player that can play MP3 files. Include features like play, pause, stop, and volume control. -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Audio Player</title>
+    <style>
+        /* CSS styles for the audio player */
+        
+        .player-container {
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        
+        audio {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="player-container">
+        <audio id="audio-player" controls>
+            Your browser does not support the audio element.
+        </audio>
+        <br>
+        <button id="play-btn">Play</button>
+        <button id="pause-btn">Pause</button>
+        <button id="stop-btn">Stop</button>
+        <br>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audioPlayer = document.getElementById('audio-player');
+            const playBtn = document.getElementById('play-btn');
+            const pauseBtn = document.getElementById('pause-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            const volumeSlider = document.getElementById('volume-slider');
+
+            // Play button click event
+            playBtn.addEventListener('click', function() {
+                audioPlayer.play();
+            });
+
+            // Pause button click event
+            pauseBtn.addEventListener('click', function() {
+                audioPlayer.pause();
+            });
+
+            // Stop button click event
+            stopBtn.addEventListener('click', function() {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            });
+
+            // Volume slider change event
+            volumeSlider.addEventListener('input', function() {
+                audioPlayer.volume = volumeSlider.value;
+            });
+        });
+    </script>
+</body>
+
+</html>

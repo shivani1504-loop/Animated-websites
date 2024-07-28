@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        
+        canvas {
+            background: #000;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Snake Game</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+        let snake = [{
+            x: tileCount / 2,
+            y: tileCount / 2
+        }];
+        let direction = {
+            x: 0,
+            y: 0
+        };
+        let food = randomFoodPosition();
+        let score = 0;
+
+        function gameLoop() {
+            update();
+            draw();
+            if (isGameOver()) {
+                alert('Game Over! Your score was ' + score);
+                resetGame();
+            } else {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function update() {
+            // Move snake
+            const head = {
+                x: snake[0].x + direction.x,
+                y: snake[0].y + direction.y
+            };
+            snake.unshift(head);
+
+            // Check if snake ate food
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                food = randomFoodPosition();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Draw snake
+            snake.forEach(part => {
+                ctx.fillStyle = 'lime';
+                ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+            // Draw food
+            ctx.fillStyle = 'red';
+            ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
+        }
+
+        function randomFoodPosition() {
+            let newFoodPosition;
+            while (newFoodPosition == null || onSnake(newFoodPosition)) {
+                newFoodPosition = {
+                    x: Math.floor(Math.random() * tileCount),
+                    y: Math.floor(Math.random() * tileCount)
+                };
+            }
+            return newFoodPosition;
+        }
+
+        function onSnake(position) {
+            return snake.some(part => part.x === position.x && part.y === position.y);
+        }
+
+        function isGameOver() {
+            const head = snake[0];
+            return head.x < 0 || head.y < 0 || head.x >= tileCount || head.y >= tileCount || snake.slice(1).some(part => part.x === head.x && part.y === head.y);
+        }
+
+        function resetGame() {
+            snake = [{
+                x: tileCount / 2,
+                y: tileCount / 2
+            }];
+            direction = {
+                x: 0,
+                y: 0
+            };
+            food = randomFoodPosition();
+            score = 0;
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener('keydown', e => {
+            switch (e.key) {
+                case 'ArrowUp':
+                    if (direction.y === 0) direction = {
+                        x: 0,
+                        y: -1
+                    };
+                    break;
+                case 'ArrowDown':
+                    if (direction.y === 0) direction = {
+                        x: 0,
+                        y: 1
+                    };
+                    break;
+                case 'ArrowLeft':
+                    if (direction.x === 0) direction = {
+                        x: -1,
+                        y: 0
+                    };
+                    break;
+                case 'ArrowRight':
+                    if (direction.x === 0) direction = {
+                        x: 1,
+                        y: 0
+                    };
+                    break;
+            }
+        });
+
+        requestAnimationFrame(gameLoop);
+    </script>
+</body>
+
+</html>

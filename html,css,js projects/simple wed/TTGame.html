@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .board div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="board" id="board">
+        <div onclick="cellClicked(0)" id="cell0"></div>
+        <div onclick="cellClicked(1)" id="cell1"></div>
+        <div onclick="cellClicked(2)" id="cell2"></div>
+        <div onclick="cellClicked(3)" id="cell3"></div>
+        <div onclick="cellClicked(4)" id="cell4"></div>
+        <div onclick="cellClicked(5)" id="cell5"></div>
+        <div onclick="cellClicked(6)" id="cell6"></div>
+        <div onclick="cellClicked(7)" id="cell7"></div>
+        <div onclick="cellClicked(8)" id="cell8"></div>
+    </div>
+
+    <button onclick="restart()">Restart</button>
+
+    <script>
+        let currentPlayer = 'X';
+        let board = ['', '', '', '', '', '', '', '', ''];
+
+        const winCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+
+        function cellClicked(index) {
+            if (board[index] === '') {
+                board[index] = currentPlayer;
+                document.getElementById(`cell${index}`).innerText = currentPlayer;
+                checkWin();
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+
+        function checkWin() {
+            for (let combo of winCombinations) {
+                if (board[combo[0]] !== '' &&
+                    board[combo[0]] === board[combo[1]] &&
+                    board[combo[1]] === board[combo[2]]) {
+                    alert(`Player ${board[combo[0]]} wins!`);
+                    return true;
+                }
+            }
+            if (!board.includes('')) {
+                alert('It\'s a tie! Restarting the game.');
+                restart();
+            }
+            return false;
+        }
+
+        function restart() {
+            currentPlayer = 'X';
+            board = ['', '', '', '', '', '', '', '', ''];
+            for (let i = 0; i < 9; i++) {
+                document.getElementById(`cell${i}`).innerText = '';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

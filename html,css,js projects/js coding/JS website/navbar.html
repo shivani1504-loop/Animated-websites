@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive NavBar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+        }
+        
+        body {
+            font-family: "Roboto", sans-serif;
+        }
+        
+        nav {
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            position: relative;
+        }
+        
+        .nav-center {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+        
+        .nav-header {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-header h2 {
+            margin-left: 10px;
+        }
+        
+        .logo {
+            color: #ffdd59;
+        }
+        
+        .toggle-icon {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 21px;
+        }
+        
+        .toggle-icon div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .links {
+            display: flex;
+            position: relative;
+        }
+        
+        .links li {
+            margin-left: 20px;
+            position: relative;
+        }
+        
+        .links a {
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .links a:hover {
+            color: #ffdd59;
+        }
+        
+        .links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #ffdd59;
+            transition: width 0.3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .links a:hover::after {
+            width: 100%;
+        }
+        
+        .social-icons {
+            display: flex;
+        }
+        
+        .social-icons li {
+            margin-left: 10px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: #ffdd59;
+            transform: scale(1.2);
+        }
+        
+        @media screen and (max-width: 768px) {
+            .toggle-icon {
+                display: flex;
+            }
+            .links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #444;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 10px 0;
+            }
+            .links li {
+                margin: 10px 0;
+                text-align: center;
+            }
+            .links.show-links {
+                display: flex;
+            }
+            .social-icons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-center">
+            <!-- nav header -->
+            <div class="nav-header">
+                <h2><span class="logo">$coder# </span>$hiv@</h2>
+                <div class="toggle-icon" id="toggle-icon">
+                    <div class="bar1"></div>
+                    <div class="bar2"></div>
+                    <div class="bar3"></div>
+                </div>
+            </div>
+            <!-- main links -->
+            <ul class="links" id="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+
+            <!-- social icons -->
+            <ul class="social-icons">
+                <li>
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.whatsapp.com" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script>
+        const toggleIcon = document.getElementById('toggle-icon');
+        const navLinks = document.getElementById('nav-links');
+
+        toggleIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('show-links');
+        });
+    </script>
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+.varela-round-regular {
+  font-family: "Varela Round", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.varela-round-regular {
+   
+    font-weight: 400;
+    font-style: normal;
+  }

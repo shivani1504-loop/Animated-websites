@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Screen Recording App</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+        }
+        
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+         :root {
+            --main-clr: #22252D;
+            --light-main-clr: #181c257e;
+            --btn-bg-clr: #272B33;
+            --oprator-clr: #e71f1f;
+            --clear-btn-clr: #26E5C3;
+        }
+        
+        .main-div {
+            height: 550px;
+            width: 350px;
+            margin: 30px auto;
+            padding: 10px;
+            position: relative;
+            background: var(--main-clr);
+            border: 5px solid var(--clear-btn-clr);
+            border-radius: 30px;
+        }
+        
+        .screen {
+            height: 100px;
+            width: 100%;
+            background: var(--light-main-clr);
+            font-size: 32px;
+            text-align: center;
+            border-radius: 30px;
+            line-height: 100px;
+            text-align: right;
+            padding: 0 10px;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .clear {
+            height: 50px;
+            width: 50px;
+            position: absolute;
+            background: var(--clear-btn-clr);
+            top: 0;
+            margin-top: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 32px;
+            opacity: 0.2;
+            cursor: pointer;
+        }
+        
+        .clear:hover {
+            opacity: 1;
+            transition: 0.4s ease-in-out;
+        }
+        
+        .number-div {
+            padding: 30px 20px;
+            margin: auto;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .number-div li {
+            flex: 22%;
+            height: 65px;
+            width: 20px;
+            background: var(--light-main-clr);
+            margin: 15px 2px;
+            text-align: center;
+            line-height: 65px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 32px;
+            cursor: pointer;
+            color: #fff;
+        }
+        
+        .number-div li:hover {
+            border: 1px solid var(--clear-btn-clr);
+            transition: .4s ease-in-out;
+        }
+        
+        .number-div li.math {
+            color: var(--oprator-clr);
+        }
+        
+        .number-div li.math:hover {
+            border: 1px solid var(--oprator-clr);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-div">
+        <div class="screen" id="screen">
+            <p></p>
+        </div>
+        <div class="clear" id="clear">C</div>
+        <ul class="number-div">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li class="math">+</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li class="math">x</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li class="math">-</li>
+            <li>0</li>
+            <li>.</li>
+            <li id="equal">=</li>
+            <li class="math">/</li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        var element = document.getElementsByTagName("li")
+        var screen = document.querySelectorAll('p')[0]
+        var clear = document.getElementsByClassName('clear')[0]
+
+        for (var i = 0; i < element.length; i += 1) {
+            if (element[i].innerHTML === '=') {
+                element[i].addEventListener('click', calculate(i))
+            } else {
+                element[i].addEventListener('click', addToCurrentValue(i))
+            }
+
+        }
+
+
+        function addToCurrentValue(i) {
+            return function() {
+                if (element[i].innerHTML === "x") {
+                    screen.innerHTML += '*'
+                } else {
+                    screen.innerHTML += element[i].innerHTML;
+                }
+            }
+        }
+
+        //  calculate
+
+        function calculate(i) {
+            return function() {
+                screen.innerHTML = eval(screen.innerHTML)
+            }
+        }
+
+        // clear 
+        clear.onclick = function() {
+            screen.innerHTML = ' '
+        }
+    </script>
+</body>
+
+</html>

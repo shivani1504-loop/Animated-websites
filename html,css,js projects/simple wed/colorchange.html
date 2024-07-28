@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Change </title>
+    <style>
+        * {
+            margin: none;
+            padding: none;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: MistyRose;
+        }
+        
+        .container {
+            width: 60%;
+            margin: auto;
+            text-align: center;
+        }
+        
+        button {
+            padding: 15px 30px;
+            outline: none;
+            border: 1px solid #111;
+            color: #111;
+            background-color: aliceblue;
+            font-size: 22px;
+            font-weight: bolder;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+        
+        button:hover {
+            background-color: #111;
+            color: aliceblue;
+            transition: .5s ease-in-out;
+        }
+        
+        .box {
+            height: 400px;
+            width: 300px;
+            background-color: aliceblue;
+            margin: auto;
+            margin-top: 60px;
+            border-radius: 30px;
+            line-height: 400px;
+            text-align: center;
+            font-weight: bolder;
+            box-shadow: rgb(38, 57, 77) 0px 30px 40px -10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Background Color : <span class="color">#f1f5f8</span></h2>
+        <button id="btn" class="btn btn-hero">ChangeBg</button>
+    </div>
+    <div class="box" id="box">
+        Change Me
+    </div>
+    <script>
+        // js code 
+        const colors = ["AntiqueWhite", "LightSeaGreen", "Bisque", "Aquamarine", "Beige", "crimson", "CornflowerBlue", "DarkRed", "GhostWhite", "DarkSeaGreen", "Gainsboro", "DarkSlateBlue", "DarkTurquoise", "DeepSkyBlue", "FloralWhite", "FireBrick", "LightBlue", "LemonChiffon", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightSteelBlue", "LightSkyBlue"];
+        const btn = document.getElementById("btn");
+        const color = document.querySelector(".color");
+        const box = document.querySelector("#box");
+
+        btn.addEventListener("click", function() {
+            const randomNumber = getRandomNumber();
+            // console.log(randomNumber);
+            box.style.backgroundColor = colors[randomNumber];
+            color.textContent = colors[randomNumber];
+        })
+
+        function getRandomNumber() {
+            return Math.floor(Math.random() * colors.length);
+        }
+    </script>
+</body>
+
+</html>

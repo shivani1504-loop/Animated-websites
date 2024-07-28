@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        .container {
+            width: 300px;
+        }
+        
+        .form {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .form.active {
+            display: block;
+        }
+        
+        .form h2 {
+            margin-bottom: 20px;
+        }
+        
+        .form .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        
+        .form .form-group button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .toggle-link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="signup-form" class="form active">
+            <h2>Sign Up</h2>
+            <div class="form-group">
+                <label for="signup-username">Username</label>
+                <input type="text" id="signup-username">
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email">
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password">
+            </div>
+            <div class="form-group">
+                <button id="signup-button">Sign Up</button>
+            </div>
+            <div class="toggle-link" id="show-login">Already have an account? Login</div>
+        </div>
+        <div id="login-form" class="form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password">
+            </div>
+            <div class="form-group">
+                <button id="login-button">Login</button>
+            </div>
+            <div class="toggle-link" id="show-signup">Don't have an account? Sign Up</div>
+        </div>
+        <script>
+            function submitSignup(event) {
+                event.preventDefault();
+                const username = document.getElementById('signup-username').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+
+                fetch('/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            email: email,
+                            password: password
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+
+            function submitLogin(event) {
+                event.preventDefault();
+                const username = document.getElementById('login-username').value;
+                const password = document.getElementById('login-password').value;
+
+                fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            password: password
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+        </script>
+</body>
+
+</html>
